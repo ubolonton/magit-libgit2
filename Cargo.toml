@@ -1,0 +1,13 @@
+[package]
+name = "magit-libgit2"
+version = "0.1.0"
+authors = ["Nguyễn Tuấn Anh <ubolonton@gmail.com>"]
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+libc = "0.2.34"
+emacs_module_bindings = "0.7.0"
+emacs-rs-module = "0.1.0" # only for dev flow
+git2 = "0.6"
