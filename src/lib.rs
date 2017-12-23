@@ -30,7 +30,7 @@ fn git_rev_parse(env: *mut EmacsEnv, args: *mut EmacsVal) -> ConvResult<EmacsVal
     let spec = unsafe {
         e2n::string(env, *args.offset(1 as isize))?
     };
-    let repo = Repository::open(&path).map_err(conv_err)?;
+    let repo = Repository::discover(&path).map_err(conv_err)?;
     let obj = repo.revparse_single(&spec).map_err(conv_err)?;
     n2e::string(env, obj.id().to_string())
 }
