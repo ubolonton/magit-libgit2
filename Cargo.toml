@@ -2,6 +2,7 @@
 name = "magit-libgit2"
 version = "0.1.0"
 authors = ["Nguyễn Tuấn Anh <ubolonton@gmail.com>"]
+publish = false
 
 [lib]
 crate-type = ["cdylib"]
