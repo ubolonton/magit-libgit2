@@ -4,7 +4,7 @@
 
 here=`cd $(dirname $BASH_SOURCE); pwd`
 root=`cd $here/..; pwd`
-RS_MODULE=$root/target/debug/deps/libemacs_rs_module.dylib
+RS_MODULE=$(find $root -iname '*emacs_rs_module*.dylib' | head -n 1)
 MODULE=$root/target/debug/libmagit_libgit2.dylib
 
 read -r -d '' expr <<EOF
