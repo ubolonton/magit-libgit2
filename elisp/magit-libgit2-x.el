@@ -2,11 +2,6 @@
 
 ;; Copyright (C) 2010-2017  The Magit Project Contributors
 ;;
-;; You should have received a copy of the AUTHORS.md file which
-;; lists all contributors.  If not, see http://magit.vc/authors.
-
-;; Author: Nguyễn Tuấn Anh <ubolonton@gmail.com>
-
 ;;; Commentary:
 
 ;; Use libgit2 to speed up parts of magit.
