@@ -12,18 +12,29 @@ Load it in Emacs:
 #+begin_src lisp
 (add-to-list 'load-path "/path/to/magit-libgit2/target/debug")
 (require 'magit-libgit2)
-(add-to-list 'load-path "/path/to/magit-libgit2")
+(add-to-list 'load-path "/path/to/magit-libgit2/elisp")
 (require 'magit-libgit2-x)
 #+end_src
 
-** Development flow
+** Development
+#+begin_src bash
+cargo install cargo-watch
+#+end_src
+
+*** Interactive development
 In Emacs:
 #+begin_src lisp
 (server-start)
 #+end_src
-Use =cargo-watch= to recompile and reload the module every time the code changes:
+
+Recompile and reload the module every time the code changes:
 #+begin_src bash
-cargo install cargo-watch
 cargo watch -x build -s ./bin/load.sh
 #+end_src
+
 Note: Don't add  =/path/to/magit-libgit2/target/debug= to =load-path=. Don't use Emacs' default loading mechanism.
+
+*** Continuous testing
+#+begin_src bash
+cargo watch -x build -s ./bin/test.sh
+#+end_src
