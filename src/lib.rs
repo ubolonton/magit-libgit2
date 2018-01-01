@@ -58,7 +58,7 @@ pub extern "C" fn emacs_rs_module_init(raw: *mut EmacsEnv) -> libc::c_int {
     }
 }
 
-/// Entry point for Emacs' loader, for "production".
+/// Entry point for Emacs's loader, for "production".
 #[no_mangle]
 pub extern "C" fn emacs_module_init(ert: *mut EmacsRT) -> libc::c_int {
     emacs_rs_module_init(Env::from(ert).raw())

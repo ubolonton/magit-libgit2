@@ -32,7 +32,7 @@ Recompile and reload the module every time the code changes:
 cargo watch -x build -s ./bin/load.sh
 #+end_src
 
-Note: Don't add  =/path/to/magit-libgit2/target/debug= to =load-path=. Don't use Emacs' default loading mechanism.
+Note: Don't add  =/path/to/magit-libgit2/target/debug= to =load-path=. Don't use Emacs's default loading mechanism.
 
 *** Continuous testing
 #+begin_src bash
