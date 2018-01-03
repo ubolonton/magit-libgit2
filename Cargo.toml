@@ -10,7 +10,6 @@ crate-type = ["cdylib"]
 [dependencies]
 libc = "0.2.34"
 lazy_static = "1.0.0"
-# emacs_module_bindings = { path = "../emacs-module-rs" }
-emacs_module_bindings = { git = "https://github.com/ubolonton/emacs-module-rs", branch = "rework" }
+emacs = "0.2.0"
 emacs-rs-module = "0.1.0" # only for dev flow
 git2 = "0.6"
