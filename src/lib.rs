@@ -6,8 +6,7 @@ extern crate emacs;
 extern crate git2;
 
 use std::ptr;
-use emacs::EmacsVal;
-use emacs::{Env, HandleFunc, ToEmacs};
+use emacs::{Env, HandleFunc, ToLisp, Value, Result, Error};
 use git2::{Repository};
 
 emacs_plugin_is_GPL_compatible!();
@@ -18,15 +17,15 @@ lazy_static! {
     static ref MODULE_PREFIX: String = format!("{}/", MODULE);
 }
 
-fn git_rev_parse(env: &Env, args: &[EmacsVal], _data: *mut libc::c_void) -> emacs::Result<EmacsVal> {
-    let path: String = env.from_emacs(args[0])?;
-    let spec: String = env.from_emacs(args[1])?;
-    let repo = Repository::discover(&path).map_err(emacs::Error::new)?;
-    let obj = repo.revparse_single(&spec).map_err(emacs::Error::new)?;
-    obj.id().to_string().to_emacs(env)
+fn git_rev_parse(env: &Env, args: &[Value], _data: *mut libc::c_void) -> Result<Value> {
+    let path: String = args[0].to_owned(env)?;
+    let spec: String = args[1].to_owned(env)?;
+    let repo = Repository::discover(&path).map_err(Error::new)?;
+    let obj = repo.revparse_single(&spec).map_err(Error::new)?;
+    obj.id().to_string().to_lisp(env)
 }
 
-fn init(env: &mut Env) -> emacs::Result<EmacsVal> {
+fn init(env: &mut Env) -> emacs::Result<Value> {
     macro_rules! prefixed {
         ($name:expr) => {
             &format!("{}{}", *MODULE_PREFIX, $name)
