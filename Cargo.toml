@@ -11,5 +11,7 @@ crate-type = ["cdylib"]
 libc = "0.2.34"
 lazy_static = "1.0.0"
 emacs = { version = "0.3.0" }
-emacs-rs-module = { version = "0.2.2" } # TODO: dev-dependencies?
 git2 = "0.6"
+
+[dev-dependencies]
+emacs-rs-module = { version = "0.2.2" }
