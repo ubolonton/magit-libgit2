@@ -17,15 +17,17 @@ lazy_static! {
     static ref MODULE_PREFIX: String = format!("{}/", MODULE);
 }
 
-fn git_rev_parse(env: &Env, args: &[Value], _data: *mut libc::c_void) -> Result<Value> {
-    let path: String = args[0].to_owned(env)?;
-    let spec: String = args[1].to_owned(env)?;
+fn git_rev_parse<'e>(env: &'e Env, args: &[Value<'e>], _data: *mut libc::c_void) -> Result<Value<'e>> {
+    let path: String = args[0].to_rust()?;
+    let spec: String = args[1].to_rust()?;
     let repo = Repository::discover(&path).map_err(Error::new)?;
     let obj = repo.revparse_single(&spec).map_err(Error::new)?;
     obj.id().to_string().to_lisp(env)
 }
 
-fn init(env: &mut Env) -> emacs::Result<Value> {
+fn init(env: &Env) -> Result<Value> {
+    env.message("Hello, Emacs!")?;
+
     macro_rules! prefixed {
         ($name:expr) => {
             &format!("{}{}", *MODULE_PREFIX, $name)
