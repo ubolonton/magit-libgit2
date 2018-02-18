@@ -5,8 +5,7 @@ extern crate lazy_static;
 extern crate emacs;
 extern crate git2;
 
-use std::ptr;
-use emacs::{Env, HandleFunc, ToLisp, Value, Result, Error};
+use emacs::{Env, CallEnv, Value, Result, Error};
 use git2::{Repository};
 
 emacs_plugin_is_GPL_compatible!();
@@ -17,31 +16,20 @@ lazy_static! {
     static ref MODULE_PREFIX: String = format!("{}/", MODULE);
 }
 
-fn git_rev_parse<'e>(env: &'e Env, args: &[Value<'e>], _data: *mut libc::c_void) -> Result<Value<'e>> {
-    let path: String = args[0].to_rust()?;
-    let spec: String = args[1].to_rust()?;
+fn rev_parse(env: &CallEnv) -> Result<String> {
+    let path: String = env.parse_arg(0)?;
+    let spec: String = env.parse_arg(1)?;
     let repo = Repository::discover(&path).map_err(Error::new)?;
     let obj = repo.revparse_single(&spec).map_err(Error::new)?;
-    obj.id().to_string().to_lisp(env)
+    Ok(obj.id().to_string())
 }
 
 fn init(env: &Env) -> Result<Value> {
-    env.message("Hello, Emacs!")?;
-
-    macro_rules! prefixed {
-        ($name:expr) => {
-            &format!("{}{}", *MODULE_PREFIX, $name)
+    emacs_export_functions! {
+        env, *MODULE_PREFIX, {
+            "rev-parse" => (rev_parse, 2..2, "Parse the given rev using libgit2.")
         }
     }
-
-    emacs_subrs! {
-        git_rev_parse -> f_git_rev_parse;
-    }
-
-    env.register(
-        prefixed!("rev-parse"), f_git_rev_parse, 2..2,
-        "Parse the given rev using libgit2.", ptr::null_mut()
-    )?;
 
     env.provide(MODULE)
 }
