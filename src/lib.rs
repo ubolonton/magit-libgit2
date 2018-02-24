@@ -5,7 +5,7 @@ extern crate lazy_static;
 extern crate emacs;
 extern crate git2;
 
-use emacs::{Env, CallEnv, Value, Result, Error};
+use emacs::{Env, CallEnv, Value, Result};
 use git2::{Repository};
 
 emacs_plugin_is_GPL_compatible!();
@@ -19,8 +19,8 @@ lazy_static! {
 fn rev_parse(env: &CallEnv) -> Result<String> {
     let path: String = env.parse_arg(0)?;
     let spec: String = env.parse_arg(1)?;
-    let repo = Repository::discover(&path).map_err(Error::new)?;
-    let obj = repo.revparse_single(&spec).map_err(Error::new)?;
+    let repo = Repository::discover(&path)?;
+    let obj = repo.revparse_single(&spec)?;
     Ok(obj.id().to_string())
 }
 
