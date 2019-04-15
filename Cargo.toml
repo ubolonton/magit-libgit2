@@ -1,6 +1,7 @@
 [package]
 name = "magit-libgit2"
 version = "0.1.0"
+edition = "2018"
 authors = ["Nguyễn Tuấn Anh <ubolonton@gmail.com>"]
 publish = false
 
@@ -8,10 +9,8 @@ publish = false
 crate-type = ["cdylib"]
 
 [dependencies]
-libc = "0.2.36"
-lazy_static = "1.0.0"
-emacs = { version = "0.5.0" }
+emacs = { version = "0.7.0" }
 git2 = "0.6"
 
 [dev-dependencies]
-emacs-rs-module = { version = "0.5.0" }
+emacs-rs-module = { version = "0.7.0" }
