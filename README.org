@@ -1,4 +1,5 @@
 * Experimental libgit2 support for magit
+*Note*: Do not use this, unless you are interested in Rust. Magit is getting its [[https://github.com/magit/libegit2][own libgit2 binding]] through C.
 
 ** Installation
 Install Rust tool chain.
