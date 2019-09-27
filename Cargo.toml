@@ -9,8 +9,8 @@ publish = false
 crate-type = ["cdylib"]
 
 [dependencies]
-emacs = { version = "0.7.0" }
+emacs = { version = "0.11.0" }
 git2 = "0.6"
 
 [dev-dependencies]
-emacs-rs-module = { version = "0.7.0" }
+emacs-rs-module = { version = "0.11.0" }
